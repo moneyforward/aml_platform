@@ -1,0 +1,97 @@
+<!-- templates/user_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ユーザー一覧</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        .sidebar {
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding-top: 20px;
+        }
+        .sidebar a {
+            display: block;
+            color: #fff;
+            padding: 15px;
+            text-decoration: none;
+            text-align: center;
+        }
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+        .container {
+            margin-left: 200px;
+            padding: 20px;
+            width: calc(100% - 200px);
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+<div class="sidebar">
+    <a href="/users">ユーザー一覧</a>
+</div>
+<div class="container">
+    <h1>ユーザー一覧</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{range .}}
+        <tr>
+            <td>{{.Id}}</td>
+            <td>{{.Name}}</td>
+        </tr>
+        {{end}}
+        </tbody>
+    </table>
+    <div class="footer">
+        &copy; MF AML. All rights reserved.
+    </div>
+</div>
+</body>
+</html>
