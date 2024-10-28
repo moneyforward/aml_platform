@@ -1,0 +1,76 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "AML API",
+    "version": "0.0.1"
+  },
+  "servers": [
+    {
+      "url": "https://xxxx.moneyforward.com",
+      "variables": {
+        "environment": {
+          "default": "api",
+          "enum": [
+            "api"
+          ],
+          "description": ""
+        }
+      },
+      "description": "AML API server"
+    }
+  ],
+  "paths": {
+    "/api/v1/users": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "operationId": "getUserList",
+        "summary": "Userリストの取得\n",
+        "description": "Userのリストを取得します。\n",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetUserListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "User",
+      "description": "**Userとは**  \nAMLの利用者（MF内の人）を表します。"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "GetUserListResponse": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "name"
+          ]
+        }
+      }
+    }
+  }
+}
