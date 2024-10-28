@@ -25,4 +25,15 @@ go.work.sum
 .env
 
 .DS_Store
+
 /bin
+
+# .ideaディレクトリ全体を無視
+.idea/*
+
+# ただし、.ideaディレクトリ自体は無視しない
+!.idea/
+
+# 特定のファイルを無視しない
+!.idea/runConfigurations/
+!.idea/runConfigurations/start_aml_platform_backend.xml
