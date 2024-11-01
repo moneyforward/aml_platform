@@ -1,0 +1,31 @@
+# Configuration files for Backstage, the developer portal system used throughout the company
+# Doc: https://backstage.test.musubu.co.in/docs/default/location/catalogs/
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: aml_platform
+  description: Microservice for AML
+  tags:
+    - go
+    - openapi
+  annotations:
+    circleci.com/project-slug: github/moneyforward/aml_platform
+spec:
+  type: service
+  # owner: aml_platform_reviewers
+  lifecycle: production
+  channel: "https://moneyforward.slack.com/archives/C07CTDE1LH0"
+  providesApis:
+    - aml-api
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: aml-api
+  description: API provided by AML Platform
+spec:
+  type: openapi
+  lifecycle: production
+  # owner: aml_platform_reviewers
+  definition:
+    $text: ./openapi/openapi.json
