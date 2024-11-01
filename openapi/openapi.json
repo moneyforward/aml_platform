@@ -20,6 +20,125 @@
     }
   ],
   "paths": {
+    "/check/accountHolder": {
+      "post": {
+        "summary": "口座名義人をブロック銀行口座リストや反社会的勢力データベースと照らし合わせてチェックする",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "accounts": {
+                    "type": "array",
+                    "maxItems": 99,
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "accountHolder": {
+                          "type": "string",
+                          "description": "全銀仕様データレコード形式の口座名義人",
+                          "example": "ﾔﾏﾀﾞﾀﾛｳ",
+                          "pattern": "^[0-9A-Zｱ-ﾝ\\.「」\\(\\)\\-/ ¥゙゚]+$",
+                          "maxLength": 30
+                        },
+                        "accountNumber": {
+                          "type": "string",
+                          "description": "口座番号",
+                          "example": "1234567"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "チェック結果のレスポンス",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "accounts": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "accountHolder": {
+                            "type": "string",
+                            "description": "リクエストで入力された口座名義人",
+                            "example": "ﾔﾏﾀﾞﾀﾛｳ"
+                          },
+                          "accountNumber": {
+                            "type": "string",
+                            "description": "リクエストで入力された口座番号",
+                            "example": "1234567"
+                          },
+                          "isBlocked": {
+                            "type": "boolean",
+                            "description": "ブロック銀行口座リストに該当するかどうか(送金NGの想定)",
+                            "example": false
+                          },
+                          "isSuspicious": {
+                            "type": "boolean", 
+                            "description": "制裁対象や反社会的勢力の疑いがあるかどうか(ユーザー",
+                            "example": false
+                          },
+                          "message": {
+                            "type": "string",
+                            "description": "チェック結果の詳細メッセージ",
+                            "example": "該当なし"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "不正なリクエスト",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "エラーメッセージ",
+                      "example": "口座名義人は指定された文字で入力してください"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "サーバーエラー", 
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "description": "エラーメッセージ",
+                      "example": "内部サーバーエラーが発生しました"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/users": {
       "get": {
         "tags": [
